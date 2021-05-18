@@ -1,0 +1,11 @@
+---
+- name: NFS | Install nginx packahe
+  yum:
+    name: nfs-utils
+    state: present
+
+- name: NFS | Start service
+  systemd:
+    name: rpcbind
+    state: started
+    enabled: true    

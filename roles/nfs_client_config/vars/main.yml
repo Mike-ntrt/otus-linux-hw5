@@ -1,0 +1,4 @@
+nfs_server_ip: 192.168.111.110
+nfs_client_folder: "/mnt/share"
+nfs_client_upload_folder: "{{ nfs_client_folder }}/upload"
+nfs_server_share_folder: "/srv/nfs-share/upload"

@@ -1,0 +1,11 @@
+[Unit]
+Description=mount {{ nfs_client_upload_folder }}
+After=network.target multi-user.target
+
+[Mount]
+What={{ nfs_server_ip }}:{{ nfs_server_share_folder }}
+Where={{ nfs_client_upload_folder }}
+Type=nfs
+
+[Install]
+WantedBy=default.target

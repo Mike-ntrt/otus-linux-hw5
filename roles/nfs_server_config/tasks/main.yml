@@ -1,0 +1,38 @@
+---
+- name: Firewalld | Start service
+  systemd:
+    name: firewalld
+    state: started
+    enabled: true    
+
+- name: Ensure directories to export exist
+  file:
+    path: "{{ item }}"
+    mode: "0777"
+    state: directory
+  loop:
+    - "{{ nfs_share_root_folder }}"
+    - "{{ nfs_share_upload_folder }}"
+
+
+- name: Config nfs
+  template:
+    src: templates/exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - restart nfs
+  
+- name: Manage firewallcmd for nfs
+  firewalld:
+    service: "{{ item }}"
+    state: enabled
+    immediate: true
+    permanent: true
+  loop: 
+    - nfs
+    - nfs3
+    - rpc-bind
+    - mountd

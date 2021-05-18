@@ -1,0 +1,7 @@
+---
+- name: enable systemd mount
+  systemd:
+    name: mnt-share-upload.mount
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

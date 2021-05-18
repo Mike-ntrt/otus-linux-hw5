@@ -1,0 +1,9 @@
+[Unit]
+Description=automount {{ nfs_client_upload_folder }}
+After=network.target multi-user.target
+
+[Automount]
+Where={{ nfs_client_upload_folder }}
+
+[Install]
+WantedBy=default.target

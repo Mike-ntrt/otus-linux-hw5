@@ -1,0 +1,16 @@
+---
+- name: Ensure directories to mount
+  file:
+    path: "{{ nfs_client_upload_folder }}"
+    state: directory
+
+- name: Setup systemd Service for mountpoints
+  template:
+    src: share-mount.j2
+    dest: /etc/systemd/system/mnt-share-upload.mount
+  notify: enable systemd mount
+
+- name: Setup systemd Service for automount
+  template:
+    src: share-automount.j2
+    dest: /etc/systemd/system/mnt-share-upload.automount
